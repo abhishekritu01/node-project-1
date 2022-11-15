@@ -1,25 +1,30 @@
-const express =require('express')
-const app =express();
-const path =require('path')
-const ejs =require('ejs')
+const express = require('express')
+const app = express();
+const path = require('path')
+const ejs = require('ejs')
 const expressLayout = require('express-ejs-layouts')
 
 
-const PORT=process.env.PORT||3000
+const PORT = process.env.PORT || 3000
 
 
-app.get('/',(req,res)=>{
-    res.render('home');
-})
+//Assets
+app.use(express.static('public'));
 
 
-//set Templet engine
+//set Templet Engine
 app.use(expressLayout)
-app.set('views',path.join(__dirname, '/resources/views'))
-app.set('view engine','ejs')
+app.set('views', path.join(__dirname, '/resources/views'))
+app.set('view engine', 'ejs')
+
+require('./routes/web')(app)
 
 
 
-app.listen(PORT,()=>{
+
+
+
+
+app.listen(PORT, () => {
     console.log(`server is running ${PORT}`);
 })
